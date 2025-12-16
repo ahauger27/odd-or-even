@@ -1,26 +1,62 @@
-﻿// we'll use the Random class later to fill an array with randomly generated numbers.
-Random numberGenerator = new Random();
+﻿Loop();
+Console.WriteLine("Goodbye");
 
-// declare an array, 'numbers', and set each entry to 0.
-int[] numbers = [0, 0, 0, 0, 0, 0, 0];
-// store the length of 'numbers' in a variable, arrayLength.
-int arrayLength = numbers.Length;
-
-// starting at index 0, we'll iterate through the array
-for (int i = 0; i < arrayLength; i++)
+void Loop()
 {
-    // each iteration, the array item will be assigned a random number.
-    numbers[i] = numberGenerator.Next(1, 101);
-    
-    // then check wheter each generated number is evenly divisble by 0.
-    if ((numbers[i] % 2) == 0)
+    while (true)
     {
-        // if true, the number is even.
-        Console.WriteLine($"The number {numbers[i]} is even.");
+        Console.WriteLine("Enter a number, and I'll tell you whether it's odd or even. Press 'Q' to quit.");
+        string? input = Console.ReadLine();
+
+        try
+        {
+            input = input.ToUpper();
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("Please input a number")
+        }
+        if (input == "Q")
+        {
+            break;
+        }
+        else
+        {
+            int number = GetUserNumber();
+            CheckOddOrEven(number);
+            Console.WriteLine("");
+        }
+    }
+}
+
+int GetUserNumber()
+{
+    Console.Write("Enter a number: ");
+    int number = 0;
+    try
+    {
+        string? userInput = Console.ReadLine();
+        number = int.Parse(userInput);
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine($"Please input a number: ");
+    }
+    catch (OverflowException)
+    {
+        Console.WriteLine($"Please enter a number between {int.MinValue} and {int.MaxValue}:");
+    }
+    return number;  
+}
+
+string CheckOddOrEven(int number)
+{
+    if (number % 2 == 0)
+    {
+        return "Even"; 
     }
     else
     {
-        // if not, then the number is odd.
-        Console.WriteLine($"The number {numbers[i]} is odd.");
+        return "Odd";
     }
 }
