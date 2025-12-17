@@ -21,24 +21,28 @@ void Loop()
 
 int GetUserNumber()
 {
-    Console.Write("Enter a number: ");
     int number = 0;
     bool validInput = false;
     while (validInput == false)
     {
         try
         {
+            Console.Write("Enter a number: ");
             string? userInput = Console.ReadLine();
             number = int.Parse(userInput);
             validInput = true;
         }
         catch (FormatException)
         {
-            Console.WriteLine($"Please input a number: ");
+            Console.WriteLine($"Please input a numeric value. ");
         }
         catch (OverflowException)
         {
             Console.WriteLine($"Please enter a number between {int.MinValue} and {int.MaxValue}.");
+        }
+        finally
+        {
+            Console.WriteLine("");
         }
     }
     
@@ -61,7 +65,7 @@ bool CheckLoop()
 {
     while (true)
     {
-        Console.WriteLine("Would you like to continue?");
+        Console.WriteLine("Would you like to continue? (Y/N)");
         string? response = Console.ReadLine();
     
         if (response.ToUpper() == "Y")
